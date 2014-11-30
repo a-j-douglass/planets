@@ -83,7 +83,6 @@ function toPathString(points){
 		result += "L" + toPointString(points[i]);
 	}
 	result += "L" + toPointString(points[0]);
-	console.log(result)
 	return result;
 }
 
