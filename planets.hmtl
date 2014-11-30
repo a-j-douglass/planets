@@ -7,7 +7,8 @@
   <body>
   
 	<!-- the html element where to put the paper -->
-	<div id="paper1" style="height:100%;width:100%;"></div>
+	<div id="paper1" ></div>
+	<div id="controls" ></div>
 
 <script src="raphael-min.js"></script>
 <script src="jquery-1.11.1.min.js"></script>

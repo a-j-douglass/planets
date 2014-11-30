@@ -1,11 +1,14 @@
-var paper = Raphael("paper1", "100%",  "100%");
+var div = $('#paper1');
+var paper = Raphael("paper1");
 
 var height = $('#paper1').height();
 var width = $('#paper1').width();
 var viewRadius = height < width ? height : width;
 
-var space = paper.rect(0,0,width,height).attr({fill: "gray"});
-var boundary = paper.circle(width/2, height/2, viewRadius/2);
+paper.setViewBox(0,0, viewRadius, viewRadius, true);
+paper.setSize('100%', '100%');
+
+var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2);
 //var sun = paper.circle(width/2, height/2, 10).attr({fill: "yellow"});
 
 var mercury = {
@@ -127,7 +130,7 @@ function viewScale(orbitPoint) {
 }
 
 function centerPoint(viewPoint) {
-	var center = math.matrix([[width/2],[height/2]]);
+	var center = math.matrix([[viewRadius/2],[viewRadius/2]]);
 	return math.add(center, viewPoint);
 }
 
