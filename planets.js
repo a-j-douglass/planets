@@ -1,9 +1,7 @@
 var div = $('#paper1');
 var paper = Raphael("paper1");
 
-var height = $('#paper1').height();
-var width = $('#paper1').width();
-var viewRadius = height < width ? height : width;
+var viewRadius = 500;
 
 paper.setViewBox(0,0, viewRadius, viewRadius, true);
 paper.setSize('100%', '100%');
