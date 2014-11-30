@@ -108,10 +108,21 @@ function getPoint(angle, orbit) {
 	var unitPoint = math.matrix([[orbit.semimajor * Math.cos(angle)],[orbit.semiminor * Math.sin(angle)]]);
 	var orbitPoint = math.multiply(orbit.matrix, unitPoint);
 
-	return centerPoint(scalePoint(orbitPoint));
+	return centerPoint(viewScale(logScale(orbitPoint)));
 }
 
-function scalePoint(orbitPoint) {
+function logScale(point) {
+	var x = point.subset(math.index(0, 0))
+	var y = point.subset(math.index(1, 0))
+	var magnitude = math.sqrt(x * x + y * y)
+
+	var newMagnitude = math.log(magnitude + 1) * 10;
+	var scale = newMagnitude/magnitude;
+
+	return math.multiply(scale, point);
+}
+
+function viewScale(orbitPoint) {
 	var scale = viewRadius / 80;
 	return math.multiply(scale, orbitPoint);
 }
