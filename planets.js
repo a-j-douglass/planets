@@ -85,11 +85,11 @@ function centerPoint(viewPoint) {
 }
 
 function getPlanetPoint(orbit, offset){
-	var J2000 = new Date(2000, 1, 1, 0, 0, 0, 0);
+	var J2000 = new Date(2000, 1, 1, 12, 0, 0, 0);
  	var millis = (Date.now() - J2000);
  	var centuries = millis / 3155692597470;
 	var angle = orbit.base_angle + centuries * orbit.angle_rate + offset;
 
- return getPoint(angle, orbit); 
+ return getPoint(orbit.base_angle, orbit); 
 }
 
