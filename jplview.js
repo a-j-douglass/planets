@@ -29,6 +29,10 @@ function main(){
 		return point.map(function(n) {return n * scale;});
 	};
 
+	function viewInvert(point) {
+		return [point[0], -point[1]];
+	};
+
 	function centerPoint(point) {
 		return point.map(function(n) {return n + viewRadius/2;});
 	}
@@ -38,7 +42,7 @@ function main(){
 	}
 
 	function pointToView(point){
-		return centerPoint(viewScale(logScale(projectFlat(point))));
+		return centerPoint(viewScale(logScale(viewInvert(projectFlat(point)))));
 		//return centerPoint(viewScale(projectFlat(point)));
 	}
 
