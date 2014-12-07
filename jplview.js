@@ -38,8 +38,8 @@ function main(){
 	}
 
 	function pointToView(point){
-		//return centerPoint(viewScale(logScale(projectFlat(point))));
-		return centerPoint(viewScale(projectFlat(point)));
+		return centerPoint(viewScale(logScale(projectFlat(point))));
+		//return centerPoint(viewScale(projectFlat(point)));
 	}
 
 	function pointsToView(points){
@@ -54,6 +54,15 @@ function main(){
 		models.forEach(drawOrbit); 
 	}
 
+	function drawPlanet(model){
+		var point = pointToView(model.planet)
+		paper.circle(point[0], point[1], 3).attr({fill: "blue"});
+	}
+
+	function drawPlanets(models){
+		models.forEach(drawPlanet); 
+	}
+
 	var div = $('#paper1');
 	var paper = Raphael("paper1");
 
@@ -63,10 +72,12 @@ function main(){
 	paper.setSize('100%', '100%');
 
 	var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2);
+	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "blue"});
 
 	var models = computeAll();
 
 	drawOrbits(models);
+	drawPlanets(models);
 };
 
 main();

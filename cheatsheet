@@ -1,0 +1,257 @@
+Calculated current Julian Epheremis date: 2451544.5
+
+Computing position for Mercury.
+  semi-major axis: 0.387099269994935
+  eccentricity: 0.20563592973908282
+  inclination: 7.004979101416701°
+  mean longitude: 250.20415410764204°
+  longitude of perihelion: 77.4577940831911°
+  longitude of the ascending node: 48.33076764582218°
+  argument of perihelion: 29.127026437368926°
+  mean anomaly: 172.74636002445095°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 3 iterations.
+       Eccentric Anomaly: 173.98167031844903°
+  calculating current position:
+       x: -0.14072306704031023
+       y: -0.44390571592858674
+       z: -0.023346080595162643
+       distance from the Sun: 0.4662620569062623 AU
+Computing position for Venus.
+  semi-major axis: 0.723335659946612
+  eccentricity: 0.006776720562217659
+  inclination: 3.3946760607994526°
+  mean longitude: 181.17803426540328°
+  longitude of perihelion: 131.60246714326775°
+  longitude of the ascending node: 76.67984635142615°
+  argument of perihelion: 54.922620791841595°
+  mean anomaly: 49.57556712213554°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 2 iterations.
+       Eccentric Anomaly: 49.87244858402797°
+  calculating current position:
+       x: -0.7186446369848263
+       y: -0.022556262100460023
+       z: 0.041173292952343635
+       distance from the Sun: 0.7201764639861101 AU
+Computing position for Earth.
+  semi-major axis: 1.0000026099230663
+  eccentricity: 0.016711230601232033
+  inclination: -0.000015132769609856263°
+  mean longitude: 99.97176710901013°
+  longitude of perihelion: 102.93767750462504°
+  longitude of the ascending node: 0°
+  argument of perihelion: 102.93767750462504°
+  mean anomaly: -2.9659103956149124°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 2 iterations.
+       Eccentric Anomaly: -3.016293085497048°
+  calculating current position:
+       x: -0.16856286531223225
+       y: 0.968758969709345
+       z: -2.558653782299318e-7
+       distance from the Sun: 0.9833144873104672 AU
+Computing position for Mars.
+  semi-major axis: 1.5237103397471596
+  eccentricity: 0.093394098921013
+  inclination: 1.8496915313115676°
+  mean longitude: -4.8154485138602325°
+  longitude of perihelion: -23.94363567365339°
+  longitude of the ascending node: 49.559542915111976°
+  argument of perihelion: -73.50317858876537°
+  mean anomaly: 19.128187159793157°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 3 iterations.
+       Eccentric Anomaly: 21.050223808427937°
+  calculating current position:
+       x: 1.3903123445822982
+       y: -0.02098486910302877
+       z: -0.03461160316974063
+       distance from the Sun: 1.3909014139410376 AU
+Computing position for Jupiter.
+  semi-major axis: 5.202887001588912
+  eccentricity: 0.04838624181423682
+  inclination: 1.304396975149076°
+  mean longitude: 34.35489709962697°
+  longitude of perihelion: 14.728476920668308°
+  longitude of the ascending node: 100.47390628793211°
+  argument of perihelion: -85.7454293672638°
+  mean anomaly: 19.62642017895866°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 2 iterations.
+       Eccentric Anomaly: 20.601927748017772°
+  calculating current position:
+       x: 4.000605672562916
+       y: 2.9424922446563553
+       z: -0.10175564758406577
+       distance from the Sun: 4.967238726799893 AU
+Computing position for Saturn.
+  semi-major axis: 9.536675957119781
+  eccentricity: 0.05386179698028747
+  inclination: 2.485991843496372°
+  mean longitude: 49.93750920437358°
+  longitude of perihelion: 92.5988840454163°
+  longitude of the ascending node: 113.66242843178563°
+  argument of perihelion: -21.06354438636933°
+  mean anomaly: -42.661374841042715°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 3 iterations.
+       Eccentric Anomaly: -44.83734045620804°
+  calculating current position:
+       x: 6.41692506330357
+       y: 6.543720277069578
+       z: -0.36919797141789834
+       distance from the Sun: 9.172432037070875 AU
+Computing position for Uranus.
+  semi-major axis: 19.18916466685503
+  eccentricity: 0.047257440601916494
+  inclination: 0.7726378632565366°
+  mean longitude: 313.23223891071393°
+  longitude of perihelion: 170.95427071406147°
+  longitude of the ascending node: 74.016924449495°
+  argument of perihelion: 96.93734626456647°
+  mean anomaly: 142.27796819665247°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 2 iterations.
+       Eccentric Anomaly: 143.8742884293573°
+  calculating current position:
+       x: 14.424124258131279
+       y: -13.738978288718398
+       z: -0.23802068662353193
+       distance from the Sun: 19.921634944932293 AU
+Computing position for Neptune.
+  semi-major axis: 30.06992275640096
+  eccentricity: 0.008590479301163585
+  inclination: 1.7700434651578372°
+  mean longitude: -55.12302023693019°
+  longitude of perihelion: 44.96476668361588°
+  longitude of the ascending node: 131.78422580963232°
+  argument of perihelion: -86.81945912601644°
+  mean anomaly: -100.08778692054607°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 2 iterations.
+       Eccentric Anomaly: -100.57163070863608°
+  calculating current position:
+       x: 16.803470361250653
+       y: -24.993594553704998
+       z: 0.1274512099942044
+       distance from the Sun: 30.11731443384935 AU
+Computing position for Pluto.
+  semi-major axis: 39.48211675432526
+  eccentricity: 0.24882729929226557
+  inclination: 17.140012059340453°
+  mean longitude: 238.92705054348187°
+  longitude of perihelion: 224.06891684618645°
+  longitude of the ascending node: 110.30393700200986°
+  argument of perihelion: 113.7649798441766°
+  mean anomaly: 14.858133697295415°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 3 iterations.
+       Eccentric Anomaly: 19.65300769726593°
+  calculating current position:
+       x: -9.884547315137103
+       y: -27.962822782088043
+       z: 5.851509895930623
+       distance from the Sun: 30.230181964881062 AU
+Computing position for Eris.
+  semi-major axis: 67.71413080713869
+  eccentricity: 0.4404392185911707
+  inclination: 44.16847971161553°
+  mean longitude: 190.11909615585213°
+  longitude of perihelion: 187.40715384086147°
+  longitude of the ascending node: 35.87968922583325°
+  argument of perihelion: 151.5274646150282°
+  mean anomaly: 2.711942314990665°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 3 iterations.
+       Eccentric Anomaly: 4.842020486583598°
+  calculating current position:
+       x: -34.44631129903416
+       y: -13.020293248212942
+       z: 9.362998833967286
+       distance from the Sun: 37.99660702673727 AU
+Computing position for Ceres.
+  semi-major axis: 2.7677395221463
+  eccentricity: 0.07646881615610954
+  inclination: 10.59946296272898°
+  mean longitude: 880.3044156565537°
+  longitude of perihelion: 151.84910619211874°
+  longitude of the ascending node: 80.67354255829908°
+  argument of perihelion: 71.17556363381966°
+  mean anomaly: 8.455309464435004°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 2 iterations.
+       Eccentric Anomaly: 9.152194530002218°
+  calculating current position:
+       x: -2.3871925821843285
+       y: 0.7953220007059821
+       z: 0.4649422512238973
+       distance from the Sun: 2.5587881518828386 AU
+Computing position for Makemake.
+  semi-major axis: 45.45001871306916
+  eccentricity: 0.1605300997006579
+  inclination: 28.9983650323973°
+  mean longitude: 158.95190877891173°
+  longitude of perihelion: 374.7645889717837°
+  longitude of the ascending node: 79.58534009595901°
+  argument of perihelion: 295.1792488758247°
+  mean anomaly: 144.187319807128°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 3 iterations.
+       Eccentric Anomaly: 148.93361547137178°
+  calculating current position:
+       x: -44.227778537888845
+       y: 9.432862289145346
+       z: 25.055479165804623
+       distance from the Sun: 51.69963560404069 AU
+Computing position for Sedna.
+  semi-major axis: 497.6890619738669
+  eccentricity: 0.8472711710867125
+  inclination: 11.93119677155632°
+  mean longitude: 94.2021295890328°
+  longitude of perihelion: 456.0652852424964°
+  longitude of the ascending node: 144.5164104813444°
+  argument of perihelion: 311.548874761152°
+  mean anomaly: -1.8631556534635934°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 4 iterations.
+       Eccentric Anomaly: -11.743882522101238°
+  calculating current position:
+       x: 45.51062131788284
+       y: 69.42012521984523
+       z: -17.526444292079905
+       distance from the Sun: 84.83835622996301 AU
+Computing position for Varuna.
+  semi-major axis: 42.9101480990192
+  eccentricity: 0.0518987555714336
+  inclination: 17.19758294464713°
+  mean longitude: 92.60093299100464°
+  longitude of perihelion: 363.41783977906795°
+  longitude of the ascending node: 97.31577120441187°
+  argument of perihelion: 266.1020685746561°
+  mean anomaly: 89.1830932119367°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 2 iterations.
+       Eccentric Anomaly: 92.1545706652969°
+  calculating current position:
+       x: -6.345497752361114
+       y: 42.5221553877313
+       z: 0.272108306334649
+       distance from the Sun: 42.99387262708446 AU
+Computing position for Haumea.
+  semi-major axis: 43.15867575820341
+  eccentricity: 0.1943452689697332
+  inclination: 28.22385997841479°
+  mean longitude: 189.36460494020594°
+  longitude of perihelion: 361.20697743682706°
+  longitude of the ascending node: 122.0996193281456°
+  argument of perihelion: 239.10735810868147°
+  mean anomaly: -171.84237249662112°
+  Solving keplers equation for the eccentric anomaly via Newtons method.
+       Eccentric Anomaly solved with 3 iterations.
+       Eccentric Anomaly: -173.16715769448487°
+  calculating current position:
+       x: -46.43329543534061
+       y: -3.17362572862756
+       z: 22.01741028477356
+       distance from the Sun: 51.486786468948345 AU
