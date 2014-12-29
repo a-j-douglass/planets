@@ -24,13 +24,28 @@ function main(){
 		return point.map(function(n) {return n * scale;});
 	};
 
+	function rotate(point, angle) {
+		return [math.cos(angle) * point[0] - math.sin(angle) * point[1],
+				math.sin(angle) * point[0] + math.cos(angle) * point[1]]
+	};
+
+
+	function viewRotate(point) {
+		//var angle = 0.1722738292751436;
+		//var dx = 250 - 257.72523964215253;
+		//var dy = 250 - 207.90489755492604;
+		//var angle = math.atan(dx/dy);
+		var angle = -0.181499134165935;
+		return rotate(point, angle);
+	};
+
 	function viewScale(point) {
 		var scale = viewRadius / 80;
 		return point.map(function(n) {return n * scale;});
 	};
 
 	function viewInvert(point) {
-		return [point[0], -point[1]];
+		return [-point[0], -point[1]];
 	};
 
 	function centerPoint(point) {
@@ -42,8 +57,7 @@ function main(){
 	}
 
 	function pointToView(point){
-		return centerPoint(viewScale(logScale(viewInvert(projectFlat(point)))));
-		//return centerPoint(viewScale(projectFlat(point)));
+		return centerPoint(viewRotate(viewScale(logScale(viewInvert(projectFlat(point))))));
 	}
 
 	function pointsToView(points){
@@ -51,7 +65,7 @@ function main(){
 	}
 
 	function drawOrbit(model){
-		paper.path(toPathString(pointsToView(model.orbit))).attr({stroke: "blue"});
+		paper.path(toPathString(pointsToView(model.orbit))).attr({stroke: "#4E4E4E"});
 	}
 
 	function drawOrbits(models){
@@ -60,7 +74,10 @@ function main(){
 
 	function drawPlanet(model){
 		var point = pointToView(model.planet)
-		paper.circle(point[0], point[1], 3).attr({fill: "blue"});
+
+		var color = "#9E9E9E";
+		if(model.name == "earth") color = "#266DC9";
+		var planet = paper.circle(point[0], point[1], 3).attr({fill: color});
 	}
 
 	function drawPlanets(models){
@@ -75,8 +92,8 @@ function main(){
 	paper.setViewBox(0,0, viewRadius, viewRadius, true);
 	paper.setSize('100%', '100%');
 
-	var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2);
-	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "blue"});
+	var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2).attr({stroke: "#1E1E1E"});;
+	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "yellow", stroke: "yellow", opacity: "0.8"});
 
 	var models = computeAll();
 

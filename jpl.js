@@ -72,12 +72,11 @@ function addAll(elements){
 		var tolerance = 0.000001;
 		var M = elements.mean_anomaly;
 		var e = elements.eccentricity;
-		var ePrime = elements.eccentricity;
 
-		var En = M + ePrime * math.sin(M);
+		var En = M + e * math.sin(M);
 
 		while(tries > 0) {
-			var deltaM = M - (En - ePrime * math.sin(En));
+			var deltaM = M - (En - e * math.sin(En));
 			deltaE = deltaM / (1 - e * math.cos(En));
 			En = En + deltaE;
 			if(Math.abs(deltaE) < tolerance){return En;}
@@ -170,12 +169,16 @@ function computeAll() {
 			return millis / 3155692597470;
 		}
 
-		function centuriesSinceEpoch() {
-			var J2000 = new Date(2000, 1, 1, 12, 0, 0, 0);
-			var millis = (Date.now() - J2000);
+		function centuriesSinceEpoch(date) {
+			var J2000 = new Date(2000, 0, 1, 12, 0, 0, 0);
+			var millis = (date - J2000);
 			return millisToCenturies(millis);
 		}
-		
-		return computePlanets(planets, centuriesSinceEpoch());
+
+	    //	var datenow = Date.now();
+	    //var date = new Date(2000, 0, 1, 12, 0, 0, 0);
+	    var date = Date.now();		
+
+		return computePlanets(planets, centuriesSinceEpoch(date));
 };
 
