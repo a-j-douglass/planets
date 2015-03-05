@@ -1,10 +1,14 @@
+var math = require('math')
+var jplData = require('./jpldata.js');
+var jplElements = jplData.jplElements
+
 function toRadians(degrees) {
-	return math.pi * degrees / 180;
+	return math.PI * degrees / 180;
 };
 
 function modRadians(angle) {
-	while(angle > math.pi) {angle = angle - math.pi * 2}
-	while(angle < -math.pi) {angle = angle + math.pi * 2}
+	while(angle > math.PI) {angle = angle - math.PI * 2}
+	while(angle < -math.PI) {angle = angle + math.PI * 2}
 	return angle;
 };
 
@@ -151,7 +155,7 @@ function computeAll() {
 			var points = [];
 			for(i = 0; i < n_points; ++i) {
 				(function(i) {
-					angle = (i/n_points) * 2 * math.pi;
+					angle = (i/n_points) * 2 * math.PI;
 					points[points.length] = eclipticPoint(angle, elements);
 				})(i)
 			}
@@ -175,10 +179,11 @@ function computeAll() {
 			return millisToCenturies(millis);
 		}
 
-	    //	var datenow = Date.now();
-	    //var date = new Date(2000, 0, 1, 12, 0, 0, 0);
+        var planets = jplData.planets
+
 	    var date = Date.now();		
 
 		return computePlanets(planets, centuriesSinceEpoch(date));
 };
 
+module.exports=computeAll

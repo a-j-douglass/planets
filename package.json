@@ -1,0 +1,21 @@
+{
+  "name": "Planets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jpl.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alan Douglass",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "gulp": "^3.8.11",
+    "vinyl-source-stream": "^1.0.0"
+  },
+  "dependencies": {
+    "jquery": "^2.1.3",
+    "math": "0.0.3",
+    "raphael": "^2.1.0"
+  }
+}

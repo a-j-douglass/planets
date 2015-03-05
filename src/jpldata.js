@@ -61,3 +61,5 @@ var pluto = jplData(
 
 var planets = [mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto];
 
+module.exports={planets : planets, jplElements : jplElements}
+

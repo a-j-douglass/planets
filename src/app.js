@@ -1,3 +1,5 @@
+var math = require('math')
+
 function main(){
 
 	function toPointString(point){
@@ -84,6 +86,10 @@ function main(){
 		models.forEach(drawPlanet); 
 	}
 
+    var $ = require('jquery')
+    var Raphael = require('raphael')
+    var computeAll = require('./jpl.js')
+
 	var div = $('#paper1');
 	var paper = Raphael("paper1");
 
@@ -94,6 +100,7 @@ function main(){
 
 	var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2).attr({stroke: "#1E1E1E"});;
 	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "yellow", stroke: "yellow", opacity: "0.8"});
+
 
 	var models = computeAll();
 
