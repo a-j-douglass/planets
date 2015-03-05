@@ -1,6 +1,0 @@
-var math = require('math')
-console.log(math.PI)
-console.log(math.cos(0))
-console.log(math.sin(0))
-console.log(math.cos(math.PI))
-console.log(math.sin(math.PI))
