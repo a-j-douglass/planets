@@ -1,4 +1,4 @@
-var math = require('math')
+var math = require('mathjs')
 var jplData = require('./jpldata.js');
 var jplElements = jplData.jplElements
 
@@ -186,4 +186,52 @@ function computeAll() {
 		return computePlanets(planets, centuriesSinceEpoch(date));
 };
 
-module.exports=computeAll
+function stateAtDay(date) {
+		function compute(data, century) {
+			var elements = addAll(atDate(data, century));
+			var orbit = computeOrbit(elements)
+			var planet = computePlanet(elements)
+			var result = {
+				name: data.name,
+				elements: elements,
+				orbit: orbit,
+				planet: planet
+			}
+			return result;
+		};
+
+		function computeOrbit(elements){
+			var n_points = 100;
+			var points = [];
+			for(i = 0; i < n_points; ++i) {
+				(function(i) {
+					angle = (i/n_points) * 2 * math.PI;
+					points[points.length] = eclipticPoint(angle, elements);
+				})(i)
+			}
+			return points;
+		};
+
+		function computePlanets(planets, centuries){
+			var results = [];
+			planets.forEach(function(planet) {
+					results[results.length] = compute(planet, centuries);
+				});
+			return results;
+		};
+
+		function millisToCenturies(millis) {
+			return millis / 3155692597470;
+		}
+
+		function centuriesSinceEpoch(date) {
+            var epoch = 2451545 
+			return (date - epoch) / 36525;
+		}
+
+        var planets = jplData.planets
+
+		return computePlanets(planets, centuriesSinceEpoch(date));
+};
+
+module.exports={computeAll : computeAll, stateAtDay : stateAtDay}
