@@ -7,7 +7,6 @@ function toRadians(degrees) {
 };
 
 function modRadians(angle) {
-    console.log(angle)
 	while(angle > math.PI) {angle = angle - math.PI * 2}
 	while(angle < -math.PI) {angle = angle + math.PI * 2}
 	return angle;
@@ -139,6 +138,11 @@ function addAll(elements){
 };
 
 
+function millisToDays(date) {
+    return 2440588 + (date / 86400000);
+}
+
+
 function centuriesSinceEpoch(date) {
     var epoch = 2451545 
     return (date - epoch) / 36525;
@@ -178,9 +182,13 @@ function stateAtDay(date) {
 		return jplData.planets.map(compute.bind(this, centuriesSinceEpoch(date)));
 };
 
+function stateAtDate(date) {
+		return stateAtDay(millisToDays(date));
+};
+
 function stateNow() {
 		var date = Date.now();
-		return stateAtDay(centuriesSinceEpoch(date));
+		return stateAtDate(date);
 };
 
 module.exports={stateNow : stateNow, stateAtDay : stateAtDay, angleAtDay : angleAtDay}
