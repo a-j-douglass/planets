@@ -12,3 +12,4 @@ return browserify('./src/app.js')
 });
 
 
+gulp.task('default', ['browserify']);

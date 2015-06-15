@@ -1,4 +1,4 @@
-var math = require('math')
+var math = require('mathjs')
 
 function main(){
 
@@ -88,7 +88,7 @@ function main(){
 
     var $ = require('jquery')
     var Raphael = require('raphael')
-    var computeAll = require('./jpl.js')
+    var stateNow = require('./jpl.js').stateNow
 
 	var div = $('#paper1');
 	var paper = Raphael("paper1");
@@ -102,7 +102,7 @@ function main(){
 	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "yellow", stroke: "yellow", opacity: "0.8"});
 
 
-	var models = computeAll();
+	var models = stateNow();
 
 	drawOrbits(models);
 	drawPlanets(models);

@@ -7,6 +7,7 @@ function toRadians(degrees) {
 };
 
 function modRadians(angle) {
+    console.log(angle)
 	while(angle > math.PI) {angle = angle - math.PI * 2}
 	while(angle < -math.PI) {angle = angle + math.PI * 2}
 	return angle;
@@ -137,57 +138,19 @@ function addAll(elements){
 	return elements;
 };
 
-function computeAll() {
-		function compute(data, century) {
-			var elements = addAll(atDate(data, century));
-			var orbit = computeOrbit(elements)
-			var planet = computePlanet(elements)
-			var result = {
-				name: data.name,
-				orbit: orbit,
-				planet: planet
-			}
-			return result;
-		};
 
-		function computeOrbit(elements){
-			var n_points = 100;
-			var points = [];
-			for(i = 0; i < n_points; ++i) {
-				(function(i) {
-					angle = (i/n_points) * 2 * math.PI;
-					points[points.length] = eclipticPoint(angle, elements);
-				})(i)
-			}
-			return points;
-		};
-		function computePlanets(planets, centuries){
-			var results = [];
-			planets.forEach(function(planet) {
-					results[results.length] = compute(planet, centuries);
-				});
-			return results;
-		};
+function centuriesSinceEpoch(date) {
+    var epoch = 2451545 
+    return (date - epoch) / 36525;
+}
 
-		function millisToCenturies(millis) {
-			return millis / 3155692597470;
-		}
 
-		function centuriesSinceEpoch(date) {
-			var J2000 = new Date(2000, 0, 1, 12, 0, 0, 0);
-			var millis = (date - J2000);
-			return millisToCenturies(millis);
-		}
-
-        var planets = jplData.planets
-
-	    var date = Date.now();		
-
-		return computePlanets(planets, centuriesSinceEpoch(date));
-};
+function angleAtDay(planet, date) {
+    return addAll(atDate(planet, centuriesSinceEpoch(date))).eccentric_anomaly;
+}
 
 function stateAtDay(date) {
-		function compute(data, century) {
+		function compute(century, data) {
 			var elements = addAll(atDate(data, century));
 			var orbit = computeOrbit(elements)
 			var planet = computePlanet(elements)
@@ -212,26 +175,12 @@ function stateAtDay(date) {
 			return points;
 		};
 
-		function computePlanets(planets, centuries){
-			var results = [];
-			planets.forEach(function(planet) {
-					results[results.length] = compute(planet, centuries);
-				});
-			return results;
-		};
-
-		function millisToCenturies(millis) {
-			return millis / 3155692597470;
-		}
-
-		function centuriesSinceEpoch(date) {
-            var epoch = 2451545 
-			return (date - epoch) / 36525;
-		}
-
-        var planets = jplData.planets
-
-		return computePlanets(planets, centuriesSinceEpoch(date));
+		return jplData.planets.map(compute.bind(this, centuriesSinceEpoch(date)));
 };
 
-module.exports={computeAll : computeAll, stateAtDay : stateAtDay}
+function stateNow() {
+		var date = Date.now();
+		return stateAtDay(centuriesSinceEpoch(date));
+};
+
+module.exports={stateNow : stateNow, stateAtDay : stateAtDay, angleAtDay : angleAtDay}
