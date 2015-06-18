@@ -189,3 +189,4 @@ exports.pluto_position_test = function( assert ) {
 	assert.equal(getResults(8).planet[2].toFixed(6), 5.851509895930623.toFixed(6));
     assert.done();
 };
+

@@ -143,14 +143,14 @@ function millisToDays(date) {
 }
 
 
-function centuriesSinceEpoch(date) {
+function centuriesSinceEpoch(days) {
     var epoch = 2451545 
-    return (date - epoch) / 36525;
+    return (days - epoch) / 36525;
 }
 
 
-function angleAtDay(planet, date) {
-    return addAll(atDate(planet, centuriesSinceEpoch(date))).eccentric_anomaly;
+function angleAtDate(planet, date) {
+    return addAll(atDate(planet, centuriesSinceEpoch(millisToDays(date)))).eccentric_anomaly;
 }
 
 function stateAtDay(date) {
@@ -191,4 +191,7 @@ function stateNow() {
 		return stateAtDate(date);
 };
 
-module.exports={stateNow : stateNow, stateAtDay : stateAtDay, angleAtDay : angleAtDay}
+module.exports={
+    stateNow : stateNow,
+     stateAtDay : stateAtDay,
+     angleAtDate : angleAtDate}
