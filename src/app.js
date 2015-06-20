@@ -1,4 +1,11 @@
 var math = require('mathjs')
+var jplview = require('./jplview.js')
+var viewRadius = 500;
+var viewAngle = -0.181499134165935;
+
+var modelToView = jplview.modelToView.bind(null, viewRadius, viewAngle)
+var viewToModel = jplview.viewToModel.bind(null, viewRadius, viewAngle)
+
 
 function main(){
 
@@ -15,55 +22,12 @@ function main(){
 		return result;
 	};
 
-	function logScale(point) {
-		var x = point[0];
-		var y = point[1];
-		var magnitude = math.sqrt(x * x + y * y);
-
-		var newMagnitude = math.log(magnitude + 1) * 10;
-		var scale = newMagnitude/magnitude;
-
-		return point.map(function(n) {return n * scale;});
-	};
-
-	function rotate(point, angle) {
-		return [math.cos(angle) * point[0] - math.sin(angle) * point[1],
-				math.sin(angle) * point[0] + math.cos(angle) * point[1]]
-	};
-
-
-	function viewRotate(point) {
-		//var angle = 0.1722738292751436;
-		//var dx = 250 - 257.72523964215253;
-		//var dy = 250 - 207.90489755492604;
-		//var angle = math.atan(dx/dy);
-		var angle = -0.181499134165935;
-		return rotate(point, angle);
-	};
-
-	function viewScale(point) {
-		var scale = viewRadius / 80;
-		return point.map(function(n) {return n * scale;});
-	};
-
-	function viewInvert(point) {
-		return [-point[0], -point[1]];
-	};
-
-	function centerPoint(point) {
-		return point.map(function(n) {return n + viewRadius/2;});
-	}
-
 	function projectFlat(point) {
 		return point.slice(0, 2);
 	}
 
-	function pointToView(point){
-		return centerPoint(viewRotate(viewScale(logScale(viewInvert(projectFlat(point))))));
-	}
-
 	function pointsToView(points){
-		return points.map(pointToView)
+		return points.map(modelToView)
 	}
 
 	function drawOrbit(model){
@@ -75,11 +39,36 @@ function main(){
 	}
 
 	function drawPlanet(model){
-		var point = pointToView(model.planet)
+		var point = modelToView(model.planet)
 
 		var color = "#9E9E9E";
 		if(model.name == "earth") color = "#266DC9";
 		var planet = paper.circle(point[0], point[1], 3).attr({fill: color});
+        planet.model = model;
+
+
+        var move = function(dx, dy){
+            console.log("move dx " + dx + ' dy ' + dy )
+            var x = this.ox + dx
+            var y = this.oy + dy
+            var angle = Math.atan((y - 250) / (x - 250))
+            console.log('angle', (180 / Math.PI) *angle)
+            this.attr({cx: x, cy: y});
+        }
+        var start = function(){
+            console.log(this)
+            console.log("planet", this.model.planet)
+            console.log((180 / Math.PI) * this.model.elements.eccentric_anomaly)
+            this.ox = this.attr("cx");
+            this.oy = this.attr("cy");
+            console.log("inverse", viewToModel([this.ox, this.oy]))
+            console.log("start x " + this.ox + ' y ' + this.oy)
+        } 
+        var stop = function(){
+            this.transform("s1")
+            console.log("stop")
+        }
+        planet.drag(move, start, stop);
 	}
 
 	function drawPlanets(models){
@@ -93,7 +82,6 @@ function main(){
 	var div = $('#paper1');
 	var paper = Raphael("paper1");
 
-	var viewRadius = 500;
 
 	paper.setViewBox(0,0, viewRadius, viewRadius, true);
 	paper.setSize('100%', '100%');
