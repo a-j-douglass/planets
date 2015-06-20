@@ -194,4 +194,5 @@ function stateNow() {
 module.exports={
     stateNow : stateNow,
      stateAtDay : stateAtDay,
+     stateAtDate : stateAtDate,
      angleAtDate : angleAtDate}
