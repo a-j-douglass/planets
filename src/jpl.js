@@ -1,6 +1,11 @@
 var math = require('mathjs')
+var numeric = require('numeric')
 var jplData = require('./jpldata.js');
 var jplElements = jplData.jplElements
+
+function sqr(x){
+    return x * x;
+}
 
 function toRadians(degrees) {
 	return math.PI * degrees / 180;
@@ -149,17 +154,23 @@ function centuriesSinceEpoch(days) {
 }
 
 
-function angleAtDate(planet, date) {
-    return addAll(atDate(planet, centuriesSinceEpoch(millisToDays(date)))).eccentric_anomaly;
+function positionAtDate(planet, date) {
+    return computePlanet(addAll(atDate(planet, centuriesSinceEpoch(millisToDays(date)))));
 }
 
-function stateAtDay(date) {
+function angleAtDate(planet, date) {
+    var point = positionAtDate(planet, date);
+    return math.atan2(point[1], point[0])
+}
+
+function planetAtDay(date, planet) {
 		function compute(century, data) {
 			var elements = addAll(atDate(data, century));
 			var orbit = computeOrbit(elements)
 			var planet = computePlanet(elements)
 			var result = {
 				name: data.name,
+                data: data,
 				elements: elements,
 				orbit: orbit,
 				planet: planet
@@ -179,7 +190,15 @@ function stateAtDay(date) {
 			return points;
 		};
 
-		return jplData.planets.map(compute.bind(this, centuriesSinceEpoch(date)));
+		return compute(centuriesSinceEpoch(date), planet);
+};
+
+function planetAtDate(date, planet) {
+		return planetAtDay(millisToDays(date), planet);
+};
+
+function stateAtDay(date) {
+		return jplData.planets.map(planetAtDay.bind(this, date));
 };
 
 function stateAtDate(date) {
@@ -191,8 +210,28 @@ function stateNow() {
 		return stateAtDate(date);
 };
 
+datePlusAngle = function (planet, date, angle){
+    var startAngle = angleAtDate(planet, date)
+    var scale = 3155692597470;
+    var targetAngle = startAngle + angle
+    var centuries = angle / toRadians(planet.delta.mean_long)
+
+    var guess = date.valueOf() + (centuries * scale)
+
+    var fmin = function(x) {
+        return sqr(targetAngle - angleAtDate(planet, new Date(x[0] * scale)))
+    }
+
+    var result = numeric.uncmin(fmin, [guess / scale]);
+    return new Date(result.solution * scale);
+}
+
+
 module.exports={
     stateNow : stateNow,
      stateAtDay : stateAtDay,
      stateAtDate : stateAtDate,
-     angleAtDate : angleAtDate}
+     planetAtDate : planetAtDate,
+     positionAtDate : positionAtDate,
+     angleAtDate : angleAtDate,
+     datePlusAngle : datePlusAngle}

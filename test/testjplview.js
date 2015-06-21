@@ -1,5 +1,8 @@
+math = require('mathjs')
 jsc = require('jsverify')
+positionAtDate = require('../src/jpl.js').positionAtDate
 jplview = require('../src/jplview.js')
+var planets = require('../src/jpldata.js').planets
 console.log(jplview)
 viewInvert = jplview.viewInvert
 scale = jplview.scale
@@ -105,3 +108,26 @@ exports.whole = function( assert ) {
     assert.done();
 };
 
+exports.angle_test = function( assert ) {
+    var viewRadius = 500;
+    var viewAngle = -0.181499134165935;
+    var date1 = new Date(2015, 4, 15)
+    var date2 = new Date(2015, 5, 15)
+    var p1 = modelToView(viewRadius, viewAngle, positionAtDate(planets[2], date1));
+    console.log('p1 ' + p1)
+    var a1 = math.atan2(p1[1], p1[0])
+    var p2 = modelToView(viewRadius, viewAngle, positionAtDate(planets[2], date2));
+    console.log('p2 ' + p2)
+    var a1 = math.atan2(p1[1] - 250, p1[0] - 250)
+    var a2 = math.atan2(p2[1] - 250, p2[0] -250)
+    var da = a2 - a1;
+    console.log('date1 ' + date1)
+    console.log('date2 ' + date2)
+    console.log('angle1 ' + (180 / math.PI) *a1  + ' angle2 ' +(180 / math.PI) * a2 + ' d angle ' + (180 / math.PI) * da)
+    var result = datePlusViewAngle(planets[2], date1, da)
+    console.log('new date ' + result)
+    var error = (date2 - result)
+    console.log('error ' + error)
+    assert.ok(math.abs(error) < 1000, "error was too big")
+    assert.done();
+};

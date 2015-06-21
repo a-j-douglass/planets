@@ -1,7 +1,13 @@
 var math = require('mathjs')
 var jplview = require('./jplview.js')
+var $ = require('jquery')
+var Raphael = require('raphael')
+var stateAtDate = require('../src/jpl.js').stateAtDate
+var planetAtDate = require('../src/jpl.js').planetAtDate
+var datePlusAngle = require('../src/jpl.js').datePlusAngle 
 var viewRadius = 500;
 var viewAngle = -0.181499134165935;
+var date = Date.now();
 
 var modelToView = jplview.modelToView.bind(null, viewRadius, viewAngle)
 var viewToModel = jplview.viewToModel.bind(null, viewRadius, viewAngle)
@@ -48,25 +54,36 @@ function main(){
 
 
         var move = function(dx, dy){
-            console.log("move dx " + dx + ' dy ' + dy )
             var x = this.ox + dx
             var y = this.oy + dy
-            var angle = Math.atan((y - 250) / (x - 250))
-            console.log('angle', (180 / Math.PI) *angle)
-            this.attr({cx: x, cy: y});
+            var angle = Math.atan2(y - 250, x - 250)
+            //console.log('angle', (180 / Math.PI) *angle)
+            var dangle = angle - this.angle
+            console.log('angle' + (180 / Math.PI) * angle + ' dangle '+ (180 / Math.PI) * dangle)
+            var newDate = datePlusViewAngle(this.model.data, date, dangle)
+            console.log('new date', newDate)
+            var newModel = planetAtDate(newDate, this.model.data);
+            this.model = newModel;
+            var point = modelToView(this.model.planet);
+            console.log('new point', point)
+            this.attr({cx: point[0], cy: point[1]});
         }
         var start = function(){
             console.log(this)
-            console.log("planet", this.model.planet)
-            console.log((180 / Math.PI) * this.model.elements.eccentric_anomaly)
+            //console.log("planet", this.model.planet)
+            //console.log("angle", (180 / Math.PI) * this.model.elements.eccentric_anomaly)
             this.ox = this.attr("cx");
             this.oy = this.attr("cy");
-            console.log("inverse", viewToModel([this.ox, this.oy]))
+            //console.log("inverse", inverse)
+            this.angle = Math.atan2(this.oy - 250, this.ox - 250)
+            //console.log("inverse angle", (180 / Math.PI) * this.angle)
             console.log("start x " + this.ox + ' y ' + this.oy)
+            console.log('angle' + (180 / Math.PI) * this.angle)
+            this.attr({r: 5});
         } 
         var stop = function(){
-            this.transform("s1")
             console.log("stop")
+            this.attr({r: 3});
         }
         planet.drag(move, start, stop);
 	}
@@ -75,9 +92,6 @@ function main(){
 		models.forEach(drawPlanet); 
 	}
 
-    var $ = require('jquery')
-    var Raphael = require('raphael')
-    var stateNow = require('./jpl.js').stateNow
 
 	var div = $('#paper1');
 	var paper = Raphael("paper1");
@@ -90,7 +104,7 @@ function main(){
 	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "yellow", stroke: "yellow", opacity: "0.8"});
 
 
-	var models = stateNow();
+	var models = stateAtDate(date);
 
 	drawOrbits(models);
 	drawPlanets(models);

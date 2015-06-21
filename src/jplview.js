@@ -1,4 +1,14 @@
 var math = require('mathjs')
+var numeric = require('numeric')
+var positionAtDate = require('./jpl.js').positionAtDate
+
+function sqr(x){
+    return x * x;
+}
+
+function toRadians(degrees) {
+	return math.PI * degrees / 180;
+};
 
 function logScale(point) {
     var x = point[0];
@@ -84,6 +94,32 @@ function pointsToView(points){
     return points.map(modelToView)
 }
 
+function dateToViewAngle(planet, date){
+    var viewRadius = 500;
+    var viewAngle = -0.181499134165935;
+    var point = modelToView(viewRadius, viewAngle, positionAtDate(planet, date));
+    return math.atan2(point[1] - 250, point[0] - 250);
+}
+
+datePlusViewAngle = function (planet, date, angle){
+    var startAngle = dateToViewAngle(planet, date);
+    console.log('start angle', (180 / math.PI) *startAngle)
+    var scale = 3155692597470;
+    var targetAngle = startAngle + angle
+    console.log('target angle', (180 / math.PI) *targetAngle)
+    var centuries = angle / toRadians(planet.delta.mean_long)
+
+    var guess = date.valueOf() + (centuries * scale)
+
+    var fmin = function(x) {
+        return sqr(targetAngle - dateToViewAngle(planet, new Date(x[0] * scale)))
+    }
+
+    var result = numeric.uncmin(fmin, [guess / scale]);
+    return new Date(result.solution * scale);
+}
+
+
 module.exports = { 
     viewInvert: viewInvert,
     centerPoint: centerPoint,
@@ -93,5 +129,6 @@ module.exports = {
     logScale_i: logScale_i,
     modelToView: modelToView,
     viewToModel: viewToModel,
+    datePlusViewAngle: datePlusViewAngle,
     rotate: rotate
 }
