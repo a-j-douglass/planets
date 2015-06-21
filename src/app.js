@@ -52,6 +52,12 @@ function main(){
 		var planet = paper.circle(point[0], point[1], 3).attr({fill: color});
         planet.model = model;
 
+        var update = function(date, circle){
+            var newModel = planetAtDate(date, circle.model.data);
+            circle.model = newModel;
+            var point = modelToView(circle.model.planet);
+            circle.attr({cx: point[0], cy: point[1]});
+        }
 
         var move = function(dx, dy){
             var x = this.ox + dx
@@ -62,11 +68,7 @@ function main(){
             console.log('angle' + (180 / Math.PI) * angle + ' dangle '+ (180 / Math.PI) * dangle)
             var newDate = datePlusViewAngle(this.model.data, date, dangle)
             console.log('new date', newDate)
-            var newModel = planetAtDate(newDate, this.model.data);
-            this.model = newModel;
-            var point = modelToView(this.model.planet);
-            console.log('new point', point)
-            this.attr({cx: point[0], cy: point[1]});
+            this.allPlanets.forEach(update.bind(null, newDate));
         }
         var start = function(){
             console.log(this)
@@ -86,10 +88,11 @@ function main(){
             this.attr({r: 3});
         }
         planet.drag(move, start, stop);
+        return planet;
 	}
 
 	function drawPlanets(models){
-		models.forEach(drawPlanet); 
+		return models.map(drawPlanet); 
 	}
 
 
@@ -107,7 +110,9 @@ function main(){
 	var models = stateAtDate(date);
 
 	drawOrbits(models);
-	drawPlanets(models);
+	var ps = drawPlanets(models);
+    ps.forEach(function(p){ p.allPlanets = ps});
+
 };
 
 main();
