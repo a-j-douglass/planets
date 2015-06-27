@@ -8,6 +8,7 @@ var datePlusAngle = require('../src/jpl.js').datePlusAngle
 var viewRadius = 500;
 var viewAngle = -0.181499134165935;
 var date = Date.now();
+var dragState = {laps: 0, startAngle: 0, lastAngle: 0}
 
 var modelToView = jplview.modelToView.bind(null, viewRadius, viewAngle)
 var viewToModel = jplview.viewToModel.bind(null, viewRadius, viewAngle)
@@ -44,6 +45,10 @@ function main(){
 		models.forEach(drawOrbit); 
 	}
 
+	function angleFromSun(point){
+		return Math.atan2(point[1] - 250, point[0] - 250); 
+	}
+
 	function drawPlanet(model){
 		var point = modelToView(model.planet)
 
@@ -62,29 +67,24 @@ function main(){
         var move = function(dx, dy){
             var x = this.ox + dx
             var y = this.oy + dy
-            var angle = Math.atan2(y - 250, x - 250)
-            //console.log('angle', (180 / Math.PI) *angle)
-            var dangle = angle - this.angle
-            console.log('angle' + (180 / Math.PI) * angle + ' dangle '+ (180 / Math.PI) * dangle)
-            var newDate = datePlusViewAngle(this.model.data, date, dangle)
-            console.log('new date', newDate)
-            this.allPlanets.forEach(update.bind(null, newDate));
+            var angle = angleFromSun([x,y]);
+            if(dragState.lastAngle - angle > (0.8 * 2 * Math.PI)) dragState.laps += 1;
+            if(dragState.lastAngle - angle < -(0.8 * 2 * Math.PI)) dragState.laps -= 1;
+            var dangle = angle - dragState.startAngle + dragState.laps * 2 * Math.PI
+            var dangle = angle - dragState.startAngle + dragState.laps * 2 * Math.PI
+            dragState.lastAngle = angle
+            dragState.date = datePlusViewAngle(this.model.data, date, dangle)
+            this.allPlanets.forEach(update.bind(null, dragState.date));
         }
         var start = function(){
-            console.log(this)
-            //console.log("planet", this.model.planet)
-            //console.log("angle", (180 / Math.PI) * this.model.elements.eccentric_anomaly)
             this.ox = this.attr("cx");
             this.oy = this.attr("cy");
-            //console.log("inverse", inverse)
-            this.angle = Math.atan2(this.oy - 250, this.ox - 250)
-            //console.log("inverse angle", (180 / Math.PI) * this.angle)
-            console.log("start x " + this.ox + ' y ' + this.oy)
-            console.log('angle' + (180 / Math.PI) * this.angle)
+            dragState.date = date
+            dragState.startAngle = angleFromSun([this.ox,this.oy]);
             this.attr({r: 5});
         } 
         var stop = function(){
-            console.log("stop")
+            date = dragState.date
             this.attr({r: 3});
         }
         planet.drag(move, start, stop);
@@ -112,7 +112,6 @@ function main(){
 	drawOrbits(models);
 	var ps = drawPlanets(models);
     ps.forEach(function(p){ p.allPlanets = ps});
-
 };
 
 main();

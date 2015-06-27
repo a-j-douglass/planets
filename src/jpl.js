@@ -210,28 +210,10 @@ function stateNow() {
 		return stateAtDate(date);
 };
 
-datePlusAngle = function (planet, date, angle){
-    var startAngle = angleAtDate(planet, date)
-    var scale = 3155692597470;
-    var targetAngle = startAngle + angle
-    var centuries = angle / toRadians(planet.delta.mean_long)
-
-    var guess = date.valueOf() + (centuries * scale)
-
-    var fmin = function(x) {
-        return sqr(targetAngle - angleAtDate(planet, new Date(x[0] * scale)))
-    }
-
-    var result = numeric.uncmin(fmin, [guess / scale]);
-    return new Date(result.solution * scale);
-}
-
-
 module.exports={
     stateNow : stateNow,
      stateAtDay : stateAtDay,
      stateAtDate : stateAtDate,
      planetAtDate : planetAtDate,
      positionAtDate : positionAtDate,
-     angleAtDate : angleAtDate,
-     datePlusAngle : datePlusAngle}
+     angleAtDate : angleAtDate}

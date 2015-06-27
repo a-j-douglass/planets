@@ -10,6 +10,13 @@ function toRadians(degrees) {
 	return math.PI * degrees / 180;
 };
 
+function modRadians(angle) {
+    var result = angle;
+	while(result > math.PI) {result -= math.PI * 2}
+	while(result < -math.PI) {result += math.PI * 2}
+	return result;
+};
+
 function logScale(point) {
     var x = point[0];
     var y = point[1];
@@ -103,16 +110,19 @@ function dateToViewAngle(planet, date){
 
 datePlusViewAngle = function (planet, date, angle){
     var startAngle = dateToViewAngle(planet, date);
-    console.log('start angle', (180 / math.PI) *startAngle)
     var scale = 3155692597470;
     var targetAngle = startAngle + angle
-    console.log('target angle', (180 / math.PI) *targetAngle)
+
+    var adjust = 0;
+    if(modRadians(targetAngle) > math.PI /2) adjust = - math.PI /2;
+    if(modRadians(targetAngle) < -math.PI /2) adjust = math.PI /2;
+
     var centuries = angle / toRadians(planet.delta.mean_long)
 
     var guess = date.valueOf() + (centuries * scale)
 
     var fmin = function(x) {
-        return sqr(targetAngle - dateToViewAngle(planet, new Date(x[0] * scale)))
+        return sqr(modRadians(targetAngle + adjust - modRadians(dateToViewAngle(planet, new Date(x[0] * scale)) + adjust)))
     }
 
     var result = numeric.uncmin(fmin, [guess / scale]);
