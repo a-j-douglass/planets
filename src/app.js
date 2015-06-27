@@ -7,7 +7,7 @@ var planetAtDate = require('../src/jpl.js').planetAtDate
 var datePlusAngle = require('../src/jpl.js').datePlusAngle 
 var viewRadius = 500;
 var viewAngle = -0.181499134165935;
-var date = Date.now();
+var date = new Date(Date.now());
 var dragState = {laps: 0, startAngle: 0, lastAngle: 0}
 
 var modelToView = jplview.modelToView.bind(null, viewRadius, viewAngle)
@@ -27,6 +27,17 @@ function main(){
 		}
 		result += "L" + toPointString(points[0]);
 		return result;
+	};
+
+	function updateWithDate(text, date){
+        text.attr('text', dateString(date));
+	};
+
+
+	function dateString(date){
+        return ('0' + date.getDate()).slice(-2)
+               + ('0' + (date.getMonth() + 1)).slice(-2) +"\n"
+               + date.getFullYear();
 	};
 
 	function projectFlat(point) {
@@ -74,6 +85,7 @@ function main(){
             var dangle = angle - dragState.startAngle + dragState.laps * 2 * Math.PI
             dragState.lastAngle = angle
             dragState.date = datePlusViewAngle(this.model.data, date, dangle)
+            updateDateText(dragState.date);
             this.allPlanets.forEach(update.bind(null, dragState.date));
         }
         var start = function(){
@@ -85,6 +97,7 @@ function main(){
         } 
         var stop = function(){
             date = dragState.date
+            updateDateText(dragState.date);
             this.attr({r: 3});
         }
         planet.drag(move, start, stop);
@@ -103,9 +116,10 @@ function main(){
 	paper.setViewBox(0,0, viewRadius, viewRadius, true);
 	paper.setSize('100%', '100%');
 
-	var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2).attr({stroke: "#1E1E1E"});;
+	var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2).attr({stroke: "#1E1E1E"});
 	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "yellow", stroke: "yellow", opacity: "0.8"});
-
+	var text = paper.text(viewRadius/2, viewRadius/2, dateString(date)).attr({"font-size": 200, "font-family": "Helvetica", fill: "#282828"});
+    var updateDateText =  updateWithDate.bind(null, text);
 
 	var models = stateAtDate(date);
 
