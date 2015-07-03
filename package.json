@@ -12,7 +12,10 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "gulp": "^3.8.11",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
     "nodeunit": "^0.9.1",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.0.0"
   },
   "dependencies": {

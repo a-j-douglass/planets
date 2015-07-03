@@ -65,7 +65,7 @@ function main(){
 
 		var color = "#9E9E9E";
 		if(model.name == "earth") color = "#266DC9";
-		var planet = paper.circle(point[0], point[1], 3).attr({fill: color});
+		var planet = paper.circle(point[0], point[1], 4).attr({fill: color});
         planet.model = model;
 
         var update = function(date, circle){
@@ -93,12 +93,13 @@ function main(){
             this.oy = this.attr("cy");
             dragState.date = date
             dragState.startAngle = angleFromSun([this.ox,this.oy]);
-            this.attr({r: 5});
+            this.attr({r: 6});
         } 
         var stop = function(){
             date = dragState.date
             updateDateText(dragState.date);
-            this.attr({r: 3});
+            dragState = {laps: 0, startAngle: 0, lastAngle: 0}
+            this.attr({r: 4});
         }
         planet.drag(move, start, stop);
         return planet;
