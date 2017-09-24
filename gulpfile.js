@@ -20,11 +20,13 @@ gulp.task('compile-js', function() {
     .on('error', logAndEnd)
     //Pass desired output filename to vinyl-source-stream
     // Start piping stream to tasks!
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest(dist));
+});
 
 gulp.task('html', function () {
   return gulp.src('src/**/*.html').pipe(gulp.dest(dist));
 });
+
 gulp.task('css', function () {
   return gulp.src('src/**/*.css').pipe(gulp.dest(dist));
 });
@@ -40,7 +42,7 @@ gulp.task('compile-js-min', function() {
     //Pass desired output filename to vinyl-source-stream
     // Start piping stream to tasks!
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest(dist));
 });
 
 gulp.task('build', ['compile-js', 'html', 'css']);
@@ -49,6 +51,7 @@ gulp.task('default', ['build']);
 
 gulp.task('watch', function() {
 	gulp.watch('./src/*.js', ['compile-js']);
+});
  
 gulp.task('deploy', ['build'], function () {
   return gulp.src("./dist/**/*")
