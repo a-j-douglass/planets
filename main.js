@@ -86,8 +86,8 @@ function main(){
         }
 
         var move = function(dx, dy){
-            var x = this.ox + dx
-            var y = this.oy + dy
+            var x = this.ox + dx/2
+            var y = this.oy + dy/2
             var angle = angleFromSun([x,y]);
             if(dragState.lastAngle - angle > (0.8 * 2 * Math.PI)) dragState.laps += 1;
             if(dragState.lastAngle - angle < -(0.8 * 2 * Math.PI)) dragState.laps -= 1;
