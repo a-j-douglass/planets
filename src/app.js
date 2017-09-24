@@ -30,7 +30,9 @@ function main(){
 	};
 
 	function updateWithDate(text, date){
-        text.attr('text', dateString(date));
+        var newValue = dateString(date)
+        text.attr('text', newValue);
+        document.getElementById("dateInput").value = newValue
 	};
 
 
@@ -39,6 +41,13 @@ function main(){
                + ('0' + (date.getMonth() + 1)).slice(-2)
                + ('0' + date.getDate()).slice(-2);
 	};
+
+
+	function fromDateString(date){
+        return [date.slice(0, 4), date.slice(4,6), date.slice(6)].join("-")
+	};
+
+
 
 	function projectFlat(point) {
 		return point.slice(0, 2);
@@ -122,7 +131,8 @@ function main(){
 	var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2).attr({stroke: "#1E1E1E"});
 	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "yellow", stroke: "yellow", opacity: "0.8"});
 	var text = paper.text(viewRadius/2, viewRadius/2, dateString(date)).attr({"font-size": 200, "font-family": "Courier", fill: "#202020"});
-    var updateDateText =  updateWithDate.bind(null, text);
+    var updateDateText = updateWithDate.bind(null, text);
+    updateDateText(date)
 
 	var models = stateAtDate(date);
 
@@ -137,9 +147,23 @@ function main(){
         allPlanets.forEach(function(p){ p.changeDate(date)});
     }
 
-    window.changeDate = changeDate
+    function isDate(val) {
+        var d = new Date(val);
+        return !isNaN(d.valueOf());
+    }
 
+    function submitDate(event){
+        event.preventDefault()
+        
+        var newDate = fromDateString(document.getElementById("dateInput").value)
+        if(isDate(newDate)) changeDate(newDate);
+        else document.getElementById("dateInput").value = dateString(date)
+    };
+    window.submitDate = submitDate;
 
 };
+
+
+
 
 main();
