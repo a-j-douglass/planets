@@ -19,11 +19,7 @@ So it's like a clock, with earth in blue as the 'year hand'.
 
 If you don't want to wait long enough for the outer planets to move, drag them around and the date will update.
 
-If you want a specific date, like 20th October 2017, execute
-
-`$> window.changeDate("2017-10-20");`
-
-in your browser's js console.
+If you want a specific date, like 23rd September 2114, enter it in YYYYMMDD - 21140923 - in the textbox and hit enter
 
 See how the same date for different years has Earth in the same position.
 
