@@ -8,10 +8,10 @@ This project is intended to be an accurate and pretty toy solar system.
 It shows the solar system from below,  scaled such that earth is up (12 o clock) at new years day each year and moves clockwise.
 
 So it's like a clock, with earth in blue as the 'year hand'.
-12 &uparrow is the start of January.
- 3 &rightarrow is the start of April.
- 6 &rightarrow is the start of July.
- 9 &rightarrow is the start of October.
+:arrow_up:12 is the start of January.
+:arrow_right: 3 is the start of April.
+:arrow_down: 6 is the start of July.
+:arrow_left: 9 is the start of October.
 
 If you don't want to wait long enough for the outer planets to move, drag them around and the date will update.
 
@@ -29,3 +29,4 @@ To build you need node and npm
 `$>npm install; gulp webserver;`
 
 Tested on Windows and OSX
+
