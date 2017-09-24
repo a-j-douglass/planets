@@ -59,7 +59,7 @@ gulp.task('deploy', ['build'], function () {
     .pipe(deploy())
 });
 
-gulp.task('webserver', function() {
+gulp.task('webserver', ['build'], function() {
   gulp.src(dist)
     .pipe(webserver({
       livereload: true,
