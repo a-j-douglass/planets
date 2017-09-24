@@ -5,6 +5,8 @@ var buffer = require('vinyl-buffer');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var deploy = require('gulp-gh-pages');
+
+var dist = './dist/';
  
 function logAndEnd(err) {
     console.log(err.toString());
@@ -19,8 +21,13 @@ gulp.task('compile-js', function() {
     //Pass desired output filename to vinyl-source-stream
     // Start piping stream to tasks!
     .pipe(gulp.dest('./dist/'));
-});
 
+gulp.task('html', function () {
+  return gulp.src('src/**/*.html').pipe(gulp.dest(dist));
+});
+gulp.task('css', function () {
+  return gulp.src('src/**/*.css').pipe(gulp.dest(dist));
+});
 
 gulp.task('compile-js-min', function() {
     return browserify('./src/app.js')
@@ -36,12 +43,14 @@ gulp.task('compile-js-min', function() {
     .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('default', ['compile-js']);
+gulp.task('build', ['compile-js', 'html', 'css']);
+
+gulp.task('default', ['build']);
 
 gulp.task('watch', function() {
 	gulp.watch('./src/*.js', ['compile-js']);
  
-gulp.task('deploy', ['browserify'], function () {
+gulp.task('deploy', ['build'], function () {
   return gulp.src("./dist/**/*")
     .pipe(deploy())
 });
