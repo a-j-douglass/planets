@@ -4,6 +4,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
+var deploy = require('gulp-gh-pages');
  
 function logAndEnd(err) {
     console.log(err.toString());
@@ -39,4 +40,8 @@ gulp.task('default', ['compile-js']);
 
 gulp.task('watch', function() {
 	gulp.watch('./src/*.js', ['compile-js']);
+ 
+gulp.task('deploy', ['browserify'], function () {
+  return gulp.src("./dist/**/*")
+    .pipe(deploy())
 });

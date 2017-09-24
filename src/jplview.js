@@ -1,4 +1,4 @@
-var math = require('mathjs')
+var math = require('math')
 var numeric = require('numeric')
 var positionAtDate = require('./jpl.js').positionAtDate
 

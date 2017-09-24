@@ -1,4 +1,4 @@
-var math = require('mathjs')
+var math = require('math')
 var jplview = require('./jplview.js')
 var $ = require('jquery')
 var Raphael = require('raphael')
