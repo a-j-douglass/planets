@@ -5,6 +5,7 @@ var buffer = require('vinyl-buffer');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var deploy = require('gulp-gh-pages');
+var webserver = require('gulp-webserver');
 
 var dist = './dist/';
  
@@ -56,4 +57,12 @@ gulp.task('watch', function() {
 gulp.task('deploy', ['build'], function () {
   return gulp.src("./dist/**/*")
     .pipe(deploy())
+});
+
+gulp.task('webserver', function() {
+  gulp.src(dist)
+    .pipe(webserver({
+      livereload: true,
+      open: true
+    }));
 });
