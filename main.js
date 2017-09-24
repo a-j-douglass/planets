@@ -36,9 +36,9 @@ function main(){
 
 
 	function dateString(date){
-        return ('0' + date.getDate()).slice(-2)
-               + ('0' + (date.getMonth() + 1)).slice(-2) +"\n"
-               + date.getFullYear();
+        return date.getFullYear() +"\n" 
+               + ('0' + (date.getMonth() + 1)).slice(-2)
+               + ('0' + date.getDate()).slice(-2);
 	};
 
 	function projectFlat(point) {
@@ -88,6 +88,7 @@ function main(){
             dragState.date = datePlusViewAngle(this.model.data, date, dangle)
             updateDateText(dragState.date);
             this.allPlanets.forEach(update.bind(null, dragState.date));
+
         }
         var start = function(){
             this.ox = this.attr("cx");
@@ -102,6 +103,7 @@ function main(){
             dragState = {laps: 0, startAngle: 0, lastAngle: 0}
             this.attr({r: 4});
         }
+        planet.changeDate = function(newDate){update(newDate, planet)}; 
         planet.drag(move, start, stop);
         return planet;
 	}
@@ -120,14 +122,25 @@ function main(){
 
 	var boundary = paper.circle(viewRadius/2, viewRadius/2, viewRadius/2).attr({stroke: "#1E1E1E"});
 	var sun = paper.circle(viewRadius/2, viewRadius/2, 3).attr({fill: "yellow", stroke: "yellow", opacity: "0.8"});
-	var text = paper.text(viewRadius/2, viewRadius/2, dateString(date)).attr({"font-size": 200, "font-family": "Helvetica", fill: "#282828"});
+	var text = paper.text(viewRadius/2, viewRadius/2, dateString(date)).attr({"font-size": 200, "font-family": "Courier", fill: "#202020"});
     var updateDateText =  updateWithDate.bind(null, text);
 
 	var models = stateAtDate(date);
 
 	drawOrbits(models);
-	var ps = drawPlanets(models);
-    ps.forEach(function(p){ p.allPlanets = ps});
+	var allPlanets = drawPlanets(models);
+    allPlanets.forEach(function(p){ p.allPlanets = allPlanets});
+
+    function changeDate(dateString)
+    {
+        var date = new Date(dateString)
+        updateWithDate(text, date)
+        allPlanets.forEach(function(p){ p.changeDate(date)});
+    }
+
+    window.changeDate = changeDate
+
+
 };
 
 main();
