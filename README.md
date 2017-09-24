@@ -13,6 +13,6 @@ If you don't want to wait long enough for the outer planets to move, drag them a
 
 To build you need node and npm
 
-`$>npm install; gulp;`
+`$>npm install; gulp webserver;`
 
 Tested on Windows and OSX
