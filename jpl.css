@@ -2,6 +2,8 @@ html, body{
 margin: 0;
 padding: 0;
 height: 100%;
+background-color: #2B2B2B;
+color: #777;
 }
 
 header{
@@ -10,8 +12,10 @@ width: 100%;
 background-color: blue;
 }
 
+#container { width: 900px; text-align: left; margin: 0px auto; }
+#dateInput { width: 150px; }
+
 #paper1{
-background-color: #2B2B2B;
 height: 100%;
 width: 100%;
 }
@@ -30,4 +34,32 @@ width: 100%;
     bottom: 0px;
     height: 10px;
     width: 100%;
+}
+input {
+    border: 1px solid #111;
+    padding: 0.5em;
+    font-size: 15px;
+    line-height: 1.2em;
+    width: 80%;
+    background: #444;
+    color: #fff;
+    font-family: helvetica, sans-serif;
+    background: -webkit-gradient(linear, left top, left bottom, from(#222), to(#444));
+    -webkit-appearance: none;
+    /*box-shadow*/
+    -webkit-box-shadow: 1px 1px 1px #333;
+    -moz-box-shadow: 1px 1px 1px #333;
+    box-shadow: 1px 1px 1px #333;
+}
+
+fieldset{
+border:0;
+}
+
+input[type=text] { 
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+    background: -moz-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+    background: -o-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+    background: -ms-gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
+    background:  gradient(linear, left top, left bottom, color-stop(0, #222), color-stop(0.12, #333));
 }

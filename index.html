@@ -5,10 +5,13 @@
 	<link href="jpl.css" rel="stylesheet" type="text/css">
   </head>
   <body>
-  
-	<!-- the html element where to put the paper -->
-	<div id="paper1" ></div>
-
+	<div id="container">
+        <form onsubmit="submitDate(event)">
+            <input type="text" id="dateInput"></input>
+        </form>
+      
+        <div id="paper1" ></div>
+    </div>
 <script src="main.js"></script>
   </body>
 </html>
