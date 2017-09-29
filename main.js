@@ -14654,7 +14654,7 @@ function addAll(elements){
 			if(Math.abs(deltaE) < tolerance){return En;}
 			--tries;
 		}
-		throw "numeric method didn't converge"
+        return En;
 	};
 
 	function addEccentricAnomaly(elements) {
